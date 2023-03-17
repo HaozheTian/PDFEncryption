@@ -1,4 +1,6 @@
 from cryptography.fernet import Fernet
+import argparse
+
 
 def write_key(key_directory):
     """
@@ -46,9 +48,14 @@ def decrypt_file(file_directory, key, inplace=0):
         with open(file_directory[:-4] + "_decrypted.pdf", "wb") as file:
             file.write(file_Data)
 
+parser = argparse.ArgumentParser(
+                    prog='KeyGenerator',
+                    description='generate key for PDF encryption (careful not to publish your own key online)')
+parser.add_argument('-p', '--path', default="key.key", help='file path for key file, ending in .key')
+args = parser.parse_args()
 
-
-# write_key("key.key")
+print(args.path)
+write_key("key.key")
 
 # key = load_key("key.key")
 # encrypt_file("momentus.pdf", key)
